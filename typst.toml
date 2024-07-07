@@ -1,13 +1,13 @@
 [package]
-name = "touying-buaa"
+name = "touying-ustc"
 version = "0.1.0"
 entrypoint = "lib.typ"
-authors = ["Yip Coekjan <cn_yzr@qq.com>"]
+authors = ["DRY <1729361922@qq.com>"]
 license = "MIT"
-description = "Touying Slide Theme for Beihang University"
-homepage = "https://github.com/Coekjan/touying-buaa"
-repository = "https://github.com/Coekjan/touying-buaa"
-keywords = ["touying", "slide", "theme", "buaa", "beihang"]
+description = "Touying Slide Theme for USTC"
+homepage = "https://github.com/semidry/Typst_USTC_CS"
+repository = "https://github.com/semidry/Typst_USTC_CS"
+keywords = ["touying", "slide", "theme", "ustc", "zhongkeda"]
 categories = ["presentation"]
 exclude = [".github/", "examples/"]
 

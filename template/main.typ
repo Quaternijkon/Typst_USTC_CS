@@ -4,6 +4,22 @@
 
 #import "@preview/timeliney:0.0.1"
 
+#import "@preview/codly:0.2.0": *
+#let icon(codepoint) = {
+  box(
+    height: 0.8em,
+    baseline: 0.05em,
+    image(codepoint)
+  )
+  h(0.1em)
+}
+
+#codly(languages: (
+  rust: (name: "Rust", icon: icon("../assets/img/brand-rust.svg"), color: rgb("#CE412B")),
+))
+
+
+
 #set text(
   lang: "zh",
   font: "PingFang SC",
@@ -30,6 +46,7 @@
  * It then displays the value of `init` using the `#show` directive.
  */
 #let (init, slides) = utils.methods(s)
+#show: codly-init.with()//codly代码块初始化
 #show: init
 
 // Extract slide functions
@@ -49,7 +66,7 @@
  */
 #outline-slide()
 
-= 第一章
+= 第一章：样式
 
 == 想分列显示？
 
@@ -61,14 +78,19 @@
 
 #slide(composer: (1fr, auto))[
   First column.
+  #figure(
+    image("../assets/img/brand-rust.svg", width: 10%),
+    caption: [Rust logo],
+  )
 ][
   Second column.
 ]
 
-= 第二章
+= 第二章：小组件
 
 == 时间轴，很简单
 
+//timeliney
 #timeliney.timeline(
   show-grid: true,
   {
@@ -115,3 +137,16 @@
     )
   }
 )
+
+== 代码块，很优雅
+
+//codly
+```rust
+pub fn main() {
+    println!("Hello, world!");
+}
+```
+
+= 第三章
+
+== 

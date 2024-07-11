@@ -53,10 +53,16 @@
 
 == 想分列显示？
 
-#slide[
-  第一列
+// #slide[
+//   第一列
+// ][
+//   第二列
+// ]
+
+#slide(composer: (1fr, auto))[
+  First column.
 ][
-  第二列
+  Second column.
 ]
 
 = 第二章

@@ -90,7 +90,7 @@
 
 == 时间轴，很简单
 
-//timeliney
+//timeliney: https://typst.app/universe/package/timeliney
 #timeliney.timeline(
   show-grid: true,
   {
@@ -140,7 +140,7 @@
 
 == 代码块，很优雅
 
-//codly
+//codly: https://typst.app/universe/package/codly
 ```rust
 pub fn main() {
     println!("Hello, world!");

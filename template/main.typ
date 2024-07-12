@@ -37,7 +37,7 @@
   institution: [School of Computer Science and Technology, USTC],
   // logo: image("../assets/vi/ustc-cs.svg", width: 20%)
   // logo: image("../assets/vi/ustc_logo_side.svg", width: 20%)
-  logo: image("../assets/img/USTC_CS.svg", width: 50%)
+  logo: image("../assets/img/USTC.svg", width: 50%)
 )
 
 // Extract methods

@@ -1,9 +1,11 @@
 // #import "@preview/touying:0.4.2": *
 
 #import "theme.typ": *
+#import "lib.typ": *
 // #import "./theme.typ" as ustc-theme
 
-#let s = register()
+#let s = register(aspect-ratio: "16-9")
+#let s = (s.methods.numbering)(self: s, section: "1.", "1.1")
 
 #let s = (s.methods.info)(
   self: s,
@@ -12,8 +14,7 @@
   author: [DRY],
   date: datetime.today(),
   institution: [School of Computer Science and Technology, USTC],
-  logo: image("./assets/img/USTC.svg", width: 50%)
-  //可以继续添加info，然后在theme.typ中添加对应的调用
+  logo: image("./assets/img/USTC.svg", width: 50%),
 )
 
 #let (init, slides) = utils.methods(s)
@@ -38,7 +39,3 @@
   )
   h(0.1em)
 }
-
-#codly(languages: (
-  rust: (name: "Rust", icon: icon("./assets/img/brand-rust.svg"), color: rgb("#CE412B")),
-))

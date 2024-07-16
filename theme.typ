@@ -1,16 +1,9 @@
-// University theme - modified to fit BUAA
-// Inspired by https://github.com/QuadnucYard/touying-theme-seu
 
 #import "@preview/touying:0.4.2": *
 
 #let ustcblue=rgb("#034ea1")
 
-/**
- * Creates a navigation bar component for the "touying" application.
- * 
- * @param self - The self parameter.
- * @returns The generated navigation bar component.
- */
+
  //横向导航栏
 #let ustc-nav-bar(self: none) = states.touying-progress-with-sections(dict => {
   let (current-sections, final-sections) = dict
@@ -35,12 +28,7 @@
   }
 })
 
-/**
- * Defines the `buaa-outline` function which generates an outline for the `touying-progress-with-sections` state.
- * 
- * @param self - The current state of the outline.
- * @returns The generated outline with links to sections.
- */
+
  //章节目录页（）
 #let buaa-outline(self: none) = states.touying-progress-with-sections(dict => {
   let (current-sections, final-sections) = dict
@@ -68,23 +56,12 @@
       [#link(section.loc, utils.section-short-title(section))<touying-link>],
     )
     if  i == current-index {
-      block(height: 2pt, width: 100%, spacing: 0pt, utils.call-or-display(self, self.buaa-progress-bar))
+      block(height: 2pt, width: 100%, spacing: 0pt, utils.call-or-display(self, self.ustc-progress-bar))
     }
   }
 })
 
-/**
- * Defines a slide with customizable properties.
- *
- * @param self - The slide object.
- * @param title - The title of the slide.
- * @param subtitle - The subtitle of the slide.
- * @param header - The header of the slide.
- * @param footer - The footer of the slide.
- * @param display-current-section - Whether to display the current section.
- * @param args - Additional arguments for the slide.
- * @returns The slide object with the specified properties.
- */
+
 #let slide(
   self: none,
   title: auto,
@@ -121,13 +98,7 @@
   )
 }
 
-/**
- * Defines a function `title-slide` that generates a title slide for a presentation.
- * 
- * @param self - The current state of the presentation.
- * @param args - Additional arguments for the title slide.
- * @returns The generated title slide content.
- */
+
 #let title-slide(self: none, ..args) = {
   // Function implementation...
 }
@@ -188,34 +159,20 @@
 }
 
 #let outline-slide(self: none) = {
-  // Generates an outline slide with a title and content.
-  // The title is displayed as "目录" if the text language is "zh", otherwise it is displayed as "Outline".
-  // The content includes alignment settings, bold text, and the buaa-outline function.
-  // The outline slide is created using the touying-slide method.
-  // Parameters:
-  // - self: The self parameter of the outline-slide function.
-  // Returns:
-  // - The generated outline slide.
-  self.buaa-title = context if text.lang == "zh" [目录] else [目录]
+
+  self.buaa-title = context if text.lang == "zh" [目录] else [Outline]
   let content = {
     set align(horizon)
     set text(weight: "bold")
     hide([-])
     buaa-outline(self: self)
   }
-  (self.methods.touying-slide)(self: self, repeat: none, section: (title: context if text.lang == "zh" [目录] else [目录]), content)
+  (self.methods.touying-slide)(self: self, repeat: none, section: (title: context if text.lang == "zh" [目录] else [Outline]), content)
 }
 
-/**
- * Defines a helper function to create a new section slide.
- *
- * @param self - The self parameter.
- * @param short-title - The short title of the section slide.
- * @param title - The title of the section slide.
- * @returns The new section slide.
- */
+
 #let new-section-slide(self: none, short-title: auto, title) = {
-  self.buaa-title = context if text.lang == "zh" [目录] else [目录]
+  self.buaa-title = context if text.lang == "zh" [目录] else [Outline]
   let content = {
     set align(horizon)
     set text(weight: "bold")
@@ -225,14 +182,7 @@
   (self.methods.touying-slide)(self: self, repeat: none, section: (title: title, short-title: short-title), content)
 }
 
-/**
- * Defines a function `ending-slide` that generates an ending slide for a presentation.
- *
- * @param self - The `self` object.
- * @param title - The title of the ending slide. Optional.
- * @param body - The body content of the ending slide.
- * @returns The generated ending slide.
- */
+
 #let ending-slide(self: none, title: none, body) = {
   let content = {
     set align(center + horizon)
@@ -249,15 +199,7 @@
   (self.methods.touying-slide)(self: self, repeat: none, content)
 }
 
-/**
- * Defines a macro `slides` that generates slides based on the given parameters.
- *
- * @param self - The self parameter.
- * @param title-slide - A boolean indicating whether to include a title slide.
- * @param slide-level - The level of the slides.
- * @param args - Additional arguments.
- * @returns The generated slides.
- */
+
 #let slides(self: none, title-slide: true, slide-level: 1, ..args) = {
   if title-slide {
     (self.methods.title-slide)(self: self)
@@ -265,39 +207,26 @@
   (self.methods.touying-slides)(self: self, slide-level: slide-level, ..args)
 }
 
-/**
- * Registers a theme with customizable options.
- *
- * @param {Object} self - The theme object.
- * @param {string} aspect-ratio - The aspect ratio of the presentation.
- * @param {boolean} progress-bar - Whether to enable the progress bar.
- * @param {Array} footer-columns - The columns configuration for the footer.
- * @param {Function} footer-a - The function to generate content for footer column A.
- * @param {Function} footer-b - The function to generate content for footer column B.
- * @param {Function} footer-c - The function to generate content for footer column C.
- * @param {Function} footer-d - The function to generate content for footer column D.
- * @param {Object} args - Additional arguments for the theme.
- * @returns {Object} - The registered theme object.
- */
-#let register(
-  self: themes.default.register(),
-  aspect-ratio: "16-9",
-  progress-bar: true,
-  footer-columns: (25%, 25%, 1fr, 5em),
-  footer-a: self => self.info.author,
-  footer-b: self => utils.info-date(self),
-  footer-c: self => if self.info.short-title == auto {
-    self.info.title
-  } else {
-    self.info.short-title
-  },
-  footer-d: self => {
-    states.slide-counter.display() + " / " + states.last-slide-number
-  },
-  ..args,
-) = {
-  // code implementation
-}
+
+// #let register(
+//   self: themes.default.register(),
+//   aspect-ratio: "16-9",
+//   progress-bar: true,
+//   footer-columns: (25%, 25%, 1fr, 5em),
+//   footer-a: self => self.info.author,
+//   footer-b: self => utils.info-date(self),
+//   footer-c: self => if self.info.short-title == auto {
+//     self.info.title
+//   } else {
+//     self.info.short-title
+//   },
+//   footer-d: self => {
+//     states.slide-counter.display() + " / " + states.last-slide-number
+//   },
+//   ..args,
+// ) = {
+//   // code implementation
+// }
 #let register(
   self: themes.default.register(),
   aspect-ratio: "16-9",
@@ -324,9 +253,13 @@
     tertiary: rgb("#005bac"),
     neutral-lightest: rgb("#ffffff"),
     neutral-darkest: rgb("#000000"),
+    themeblue: rgb("#4285f4"),
+    themegreen: rgb("#34a853"),
+    themeyellow: rgb("#fbbc05"),
+    themered: rgb("#ea4335"),
   )
   // marker
-  self.buaa-knob-marker = box(
+  self.ustc-knob-marker = box(
     width: 0.5em,
     place(
       dy: 0.1em,
@@ -338,13 +271,13 @@
   )
 
   // save the variables for later use
-  self.buaa-enable-progress-bar = progress-bar
-  self.buaa-progress-bar = self => states.touying-progress(ratio => {    
+  self.ustc-enable-progress-bar = progress-bar
+  self.ustc-progress-bar = self => states.touying-progress(ratio => {    
     grid(
       columns: (ratio * 100%, 1fr),
       rows: 2pt,
-      components.cell(fill: self.colors.primary),
-      components.cell(fill: self.colors.neutral-darkest),
+      components.cell(fill: self.colors.themegreen),
+      components.cell(fill: self.colors.themeyellow),
     )
   })
 
@@ -420,8 +353,8 @@
     grid(
       rows: (auto, auto),
       utils.call-or-display(self, self.buaa-footer),
-      if self.buaa-enable-progress-bar {
-        utils.call-or-display(self, self.buaa-progress-bar)
+      if self.ustc-enable-progress-bar {
+        utils.call-or-display(self, self.ustc-progress-bar)
       },
     )
   }
@@ -473,10 +406,10 @@
     )
   }
 
-  self.methods.init = (self: none, lang: "en", font: ("Linux Libertine",), body) => {
+  self.methods.init = (self: none, lang: "zh", font: ("Linux Libertine",), body) => {
     set text(size: 19pt, font: font)
     set heading(outlined: false)
-    set list(marker: self.buaa-knob-marker)
+    set list(marker: self.ustc-knob-marker)
 
     show strong: it => text(weight: "bold", it)
 

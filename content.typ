@@ -1,8 +1,5 @@
 #import "config.typ": *
-/**
- * This function represents an outline slide.
- * It is used to define the structure and content of an outline slide.
- */
+
 #outline-slide()
 
 = 第一章：样式
@@ -16,13 +13,13 @@
 // ]
 
 #slide(composer: (1fr, auto))[
-  First column.
+  #Colorful[First column].
   #figure(
     image("./assets/img/brand-rust.svg", width: 10%),
     caption: [Rust logo],
   )
 ][
-  Second column.
+  *Second column.第二列*
 ]
 
 = 第二章：小组件

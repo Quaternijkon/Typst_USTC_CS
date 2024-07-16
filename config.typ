@@ -10,11 +10,12 @@
 #let s = (s.methods.info)(
   self: s,
   title: [Typst template for School of Computer Science and Technology, USTC],
-  subtitle: [under improvement...],
+  subtitle: [Continuously Improving...],
   author: [DRY],
   date: datetime.today(),
   institution: [School of Computer Science and Technology, USTC],
   logo: image("./assets/img/USTC.svg", width: 50%),
+  github: []
 )
 
 #let (init, slides) = utils.methods(s)

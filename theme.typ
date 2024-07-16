@@ -51,14 +51,47 @@
     } else {
       self.colors.primary.lighten(80%)
     })
+    
     block(
       spacing: 1.5em,
       [#link(section.loc, utils.section-short-title(section))<touying-link>],
     )
     if  i == current-index {
-      block(height: 2pt, width: 100%, spacing: 0pt, utils.call-or-display(self, self.ustc-progress-bar))
+      block(height: 2pt, width: 100%, spacing: 0pt, utils.call-or-display(self, self.ustc-chapter-progress-bar))
     }
   }
+
+  // for (i, section) in final-sections.enumerate() {
+  //   if i == 0 {
+  //     continue
+  //   } else if current-index == 0 {
+  //     set text(fill: self.colors.primary)
+  //     block(
+  //     spacing: 1.5em,
+  //     [#link(section.loc, utils.section-short-title(section))<touying-link>],
+  //   )
+  //   } else if i == current-index {
+  //     set text(fill: self.colors.primary)
+  //     block(
+  //     spacing: 1.5em,
+  //     [#link(section.loc, utils.section-short-title(section))<touying-link>],
+  //   )
+  //     block(height: 2pt, width: 100%, spacing: 0pt, utils.call-or-display(self, self.ustc-chapter-progress-bar))
+  //   } else if i < current-index {
+  //     set text(fill: self.colors.secondary)
+  //     block(
+  //     spacing: 1.5em,
+  //     [#link(section.loc, utils.section-short-title(section))<touying-link>],
+  //   )
+  //   } else {
+  //     set text(fill: self.colors.tertiary)
+  //     block(
+  //     spacing: 1.5em,
+  //     [#link(section.loc, utils.section-short-title(section))<touying-link>],
+  //   )
+  //   }
+    
+  // }
 })
 
 
@@ -98,12 +131,8 @@
   )
 }
 
-
 #let title-slide(self: none, ..args) = {
-  // Function implementation...
-}
-#let title-slide(self: none, ..args) = {
-  // self = utils.empty-page(self)
+  self = utils.empty-page(self)
   let info = self.info + args.named()
   info.authors = {
     let authors = if "authors" in info {
@@ -119,7 +148,7 @@
   }
   let content = {
     if info.logo != none {
-      align(center + top, info.logo)
+      align(center + horizon, info.logo)
     }
     show: align.with(center + horizon)
     block(
@@ -136,10 +165,12 @@
       },
     )
     // authors
+    
     grid(
       columns: (1fr,) * calc.min(info.authors.len(), 3),
       column-gutter: 1em,
       row-gutter: 1em,
+      
       ..info.authors.map(author => text(fill: black, author)),
     )
     v(0.5em)
@@ -160,19 +191,19 @@
 
 #let outline-slide(self: none) = {
 
-  self.buaa-title = context if text.lang == "zh" [目录] else [Outline]
+  self.buaa-title = context if text.lang == "zh" [大纲] else [Outline]
   let content = {
     set align(horizon)
     set text(weight: "bold")
     hide([-])
     buaa-outline(self: self)
   }
-  (self.methods.touying-slide)(self: self, repeat: none, section: (title: context if text.lang == "zh" [目录] else [Outline]), content)
+  (self.methods.touying-slide)(self: self, repeat: none, section: (title: context if text.lang == "zh" [大纲] else [Outline]), content)
 }
 
 
 #let new-section-slide(self: none, short-title: auto, title) = {
-  self.buaa-title = context if text.lang == "zh" [目录] else [Outline]
+  self.buaa-title = context if text.lang == "zh" [大纲] else [Outline]
   let content = {
     set align(horizon)
     set text(weight: "bold")
@@ -242,6 +273,9 @@
   footer-d: self => {
     states.slide-counter.display() + " / " + states.last-slide-number
   },
+  footer-g: self => {
+    link("https://github.com/Quaternijkon/Typst_USTC_CS.git",image("assets/img/github-mark-white.svg"))
+  },
   ..args,
 ) = {
   // color theme
@@ -272,7 +306,17 @@
 
   // save the variables for later use
   self.ustc-enable-progress-bar = progress-bar
+
   self.ustc-progress-bar = self => states.touying-progress(ratio => {    
+    grid(
+      columns: (ratio * 100%, 1fr),
+      rows: 2pt,
+      components.cell(fill: gradient.linear(self.colors.primary.lighten(10%),self.colors.primary.darken(10%))),
+      components.cell(fill: self.colors.neutral-lightest),
+    )
+  })
+
+  self.ustc-chapter-progress-bar = self => states.touying-progress(ratio => {    
     grid(
       columns: (ratio * 100%, 1fr),
       rows: 2pt,
@@ -312,16 +356,17 @@
     // )
     grid(
       // columns: footer-columns,
-      columns:(27%,68%,5%),
+      columns:(24%,68%,3%,5%),
       rows: (2em, auto),
       // cell(fill: self.colors.primary, utils.call-or-display(self, footer-a)),
       // cell(fill: self.colors.primary-dark, utils.call-or-display(self, footer-b)),
       // cell(fill: self.colors.primary, utils.call-or-display(self, footer-c)),
-      cell(fill: self.colors.primary.lighten(10%), utils.call-or-display(self, footer-c)),
+      cell(fill: self.colors.primary, utils.call-or-display(self, footer-c)),
       cell(fill: self.colors.primary, ustc-nav-bar(self: self)),
       // cell(fill: self.colors.primary, utils.call-or-display(self, footer-a)),
       // cell(fill: self.colors.primary-dark.darken(20%), utils.call-or-display(self, footer-b)),
-      cell(fill: self.colors.primary.darken(10%), utils.call-or-display(self, footer-d)),
+      cell(fill: self.colors.primary, utils.call-or-display(self, footer-g)),
+      cell(fill: self.colors.primary, utils.call-or-display(self, footer-d)),
     )
   }
 

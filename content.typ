@@ -12,14 +12,16 @@
 //   第二列
 // ]
 
-#slide(composer: (1fr, auto))[
-  #Colorful[First column].
-  #figure(
-    image("./assets/img/brand-rust.svg", width: 10%),
-    caption: [Rust logo],
-  )
+#slide(composer: (1fr,1fr, auto))[
+  #Colorful[GOOGLE].
+  
 ][
   *Second column.第二列*
+][
+  #figure(
+    image("./assets/img/brand-rust.svg", width: 30%),
+    caption: [Rust logo],
+  )
 ]
 
 = 第二章：小组件
@@ -86,9 +88,3 @@ pub fn main() {
 }
 ```
 ]
-
-
-
-= 第三章
-
-== 

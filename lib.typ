@@ -40,17 +40,17 @@
      rgb("#EA4335"),
   )
 
-  let i=1;
-  let rng = gen-rng(_text.text.len());
+  let i=7;
+  let rng = gen-rng(_text.text.len() * i);
   let index_pre = integers(rng, low: 0, high: 4, size: none, endpoint: false).at(1);
 
 
   for c in _text.text{
-    let rng = gen-rng(i);
+    let rng = gen-rng(i - 1);
     let index_cur = integers(rng, low: 0, high: 4, size: none, endpoint: false).at(1);
     let cnt=100;
     while index_cur == index_pre and cnt>0{
-      let rng = gen-rng(cnt);
+      let rng = gen-rng(cnt + i);
       index_cur = integers(rng, low: 0, high: 4, size: none, endpoint: false).at(1);
       cnt -= 1;
     }
@@ -58,7 +58,7 @@
     set text(fill: color)
     [#c]
     index_pre = index_cur;
-    i += 1;
+    i += 2;
 
   }
 }

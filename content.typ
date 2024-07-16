@@ -1,65 +1,4 @@
-#import "@preview/touying:0.4.2": *
-// #import "@preview/touying-buaa:0.1.0" as buaa-theme
-#import "../lib.typ" as buaa-theme
-
-#import "@preview/timeliney:0.0.1"
-
-#import "@preview/codly:0.2.0": *
-#let icon(codepoint) = {
-  box(
-    height: 0.8em,
-    baseline: 0.05em,
-    image(codepoint)
-  )
-  h(0.1em)
-}
-
-#codly(languages: (
-  rust: (name: "Rust", icon: icon("../assets/img/brand-rust.svg"), color: rgb("#CE412B")),
-))
-
-
-
-#set text(
-  lang: "zh",
-  font: "PingFang SC",
-)
-
-#let s = buaa-theme.register()
-
-// Global information configuration
-#let s = (s.methods.info)(
-  self: s,
-  title: [Typst template for School of Computer Science and Technology, USTC],
-  subtitle: [under improvement...],
-  author: [DRY],
-  date: datetime.today(),
-  institution: [School of Computer Science and Technology, USTC],
-  // logo: image("../assets/vi/ustc-cs.svg", width: 20%)
-  // logo: image("../assets/vi/ustc_logo_side.svg", width: 20%)
-  logo: image("../assets/img/USTC.svg", width: 50%)
-)
-
-// Extract methods
-/**
- * This code initializes the `init` and `slides` variables using the `utils.methods` function.
- * It then displays the value of `init` using the `#show` directive.
- */
-#let (init, slides) = utils.methods(s)
-#show: codly-init.with()//codly代码块初始化
-#show: init
-
-// Extract slide functions
-/**
- * This code defines a set of slides using the `utils.slides` function.
- * It then displays the slides using the `slides.with()` method.
- */
-
-#let (slide, empty-slide, title-slide, outline-slide, new-section-slide, ending-slide) = utils.slides(s)
-#show: slides.with()
-
-
-
+#import "config.typ": *
 /**
  * This function represents an outline slide.
  * It is used to define the structure and content of an outline slide.
@@ -79,7 +18,7 @@
 #slide(composer: (1fr, auto))[
   First column.
   #figure(
-    image("../assets/img/brand-rust.svg", width: 10%),
+    image("./assets/img/brand-rust.svg", width: 10%),
     caption: [Rust logo],
   )
 ][
@@ -140,12 +79,18 @@
 
 == 代码块，很优雅
 
-//codly: https://typst.app/universe/package/codly
+#slide[
+  代码块
+][
+  //codly: https://typst.app/universe/package/codly
 ```rust
 pub fn main() {
     println!("Hello, world!");
 }
 ```
+]
+
+
 
 = 第三章
 

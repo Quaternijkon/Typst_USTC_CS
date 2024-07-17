@@ -238,6 +238,70 @@
   (self.methods.touying-slides)(self: self, slide-level: slide-level, ..args)
 }
 
+#let focus-slide(self: none, background-color: none, background-img: none, body) = {
+
+  let background-color = if background-img == none and background-color ==  none {
+    rgb(self.colors.primary)
+  } else {
+    background-color
+  }
+  self = utils.empty-page(self)
+  self.page-args += (
+    fill: self.colors.primary-dark,
+    margin: 1em,
+    ..(if background-color != none { (fill: background-color) }),
+    ..(if background-img != none { (background: {
+        set image(fit: "stretch", width: 100%, height: 100%)
+        background-img
+      })
+    }),
+  )
+  set text(fill: white, weight: "bold", size: 2em)
+  (self.methods.touying-slide)(self: self, repeat: none, align(horizon, body))
+}
+
+#let matrix-slide(self: none, columns: none, rows: none, ..bodies) = {
+  self = utils.empty-page(self)
+  (self.methods.touying-slide)(self: self, composer: (..bodies) => {
+    let bodies = bodies.pos()
+    let columns = if type(columns) == int {
+      (1fr,) * columns
+    } else if columns == none {
+      (1fr,) * bodies.len()
+    } else {
+      columns
+    }
+    let num-cols = columns.len()
+    let rows = if type(rows) == int {
+      (1fr,) * rows
+    } else if rows == none {
+      let quotient = calc.quo(bodies.len(), num-cols)
+      let correction = if calc.rem(bodies.len(), num-cols) == 0 { 0 } else { 1 }
+      (1fr,) * (quotient + correction)
+    } else {
+      rows
+    }
+    let num-rows = rows.len()
+    if num-rows * num-cols < bodies.len() {
+      panic("number of rows (" + str(num-rows) + ") * number of columns (" + str(num-cols) + ") must at least be number of content arguments (" + str(bodies.len()) + ")")
+    }
+    let cart-idx(i) = (calc.quo(i, num-cols), calc.rem(i, num-cols))
+    let color-body(idx-body) = {
+      let (idx, body) = idx-body
+      let (row, col) = cart-idx(idx)
+      let color = if calc.even(row + col) { white } else { silver }
+      set align(center + horizon)
+      rect(inset: .5em, width: 100%, height: 100%, fill: color, body)
+    }
+    let content = grid(
+      columns: columns, rows: rows,
+      gutter: 0pt,
+      ..bodies.enumerate().map(color-body)
+    )
+    content
+  }, ..bodies)
+}
+
 
 // #let register(
 //   self: themes.default.register(),
@@ -419,6 +483,8 @@
   self.methods.new-section-slide = new-section-slide
   self.methods.touying-new-section-slide = new-section-slide
   self.methods.ending-slide = ending-slide
+  self.methods.focus-slide = focus-slide
+  self.methods.matrix-slide = matrix-slide
   self.methods.slides = slides
   self.methods.touying-outline = (self: none, enum-args: (:), ..args) => {
     states.touying-outline(self: self, enum-args: (tight: false) + enum-args, ..args)

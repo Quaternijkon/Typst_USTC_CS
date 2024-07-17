@@ -20,3 +20,9 @@
 
 # 自定义模板
 1. 
+
+# 组件说明
+
+## gentle-clues
+
+见`docs/gentle-clues.pdf`

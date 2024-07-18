@@ -356,6 +356,10 @@ tip(title: "Best tip ever")[Check out this cool package]
 
 // #matrix-slide(columns: (1fr, 2fr, 1fr), ..(lorem(8),) * 9)
 
+== demo页
+
+// #BlueBox(title: "你好")[bubu]
+
 == 致谢
 
 #ending-slide[

@@ -97,3 +97,10 @@
 
   }
 }
+
+// #let BlueBox(title:"信息",accent-color:BLUE,header-color:BLUE.lighten(0%),..args)=idea(
+//   title:title,
+//   accent-color:accent-color,
+//   header-color:header-color,
+//   ..args
+//   )

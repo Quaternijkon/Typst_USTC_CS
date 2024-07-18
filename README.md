@@ -5,11 +5,11 @@
 - `template`: 可复用组件
     - []
 
-- `config.typ`  : 配置文件，导入第三方库请在这导入
+- `config.typ`  : 配置文件
 - `content.typ` : 只需在此处添加内容
-- `lib.typ`     : 库文件，用于使用自定义的方法函数
+- `lib.typ`     : 库文件，导入第三方库请在这导入
 - `main.typ`    : 编译入口，导入第三方库时有可能需要把`#show`放在此处
-- `theme.typ`   : 主题文件，可自行修改样式。
+- `theme.typ`   : 主题文件，可自行修改样式
 
 # 使用方法
 1.  vscode下载插件`Typst LSP`,`Typst Preview`,`Tinymist Typst`,`Typst Sync`。

@@ -30,7 +30,7 @@
 
 
  //章节目录页（）
-#let buaa-outline(self: none) = states.touying-progress-with-sections(dict => {
+#let ustc-outline(self: none) = states.touying-progress-with-sections(dict => {
   let (current-sections, final-sections) = dict
   current-sections = current-sections.filter(section => section.loc != none).map(section => (
     section,
@@ -105,19 +105,19 @@
   ..args,
 ) = {
   if title != auto {
-    self.buaa-title = title
+    self.ustc-title = title
   }
   if subtitle != auto {
-    self.buaa-subtitle = subtitle
+    self.ustc-subtitle = subtitle
   }
   if header != auto {
-    self.buaa-header = header
+    self.ustc-header = header
   }
   if footer != auto {
-    self.buaa-footer = footer
+    self.ustc-footer = footer
   }
   if display-current-section != auto {
-    self.buaa-display-current-section = display-current-section
+    self.ustc-display-current-section = display-current-section
   }
   (self.methods.touying-slide)(
     ..args.named(),
@@ -191,24 +191,24 @@
 
 #let outline-slide(self: none) = {
 
-  self.buaa-title = context if text.lang == "zh" [大纲] else [Outline]
+  self.ustc-title = context if text.lang == "zh" [大纲] else [Outline]
   let content = {
     set align(horizon)
     set text(weight: "bold")
     hide([-])
-    buaa-outline(self: self)
+    ustc-outline(self: self)
   }
   (self.methods.touying-slide)(self: self, repeat: none, section: (title: context if text.lang == "zh" [大纲] else [Outline]), content)
 }
 
 
 #let new-section-slide(self: none, short-title: auto, title) = {
-  self.buaa-title = context if text.lang == "zh" [大纲] else [Outline]
+  self.ustc-title = context if text.lang == "zh" [大纲] else [Outline]
   let content = {
     set align(horizon)
     set text(weight: "bold")
     hide([-]) // magic
-    buaa-outline(self: self)
+    ustc-outline(self: self)
   }
   (self.methods.touying-slide)(self: self, repeat: none, section: (title: title, short-title: short-title), content)
 }
@@ -389,7 +389,7 @@
     )
   })
 
-  self.buaa-navigation = self => {
+  self.ustc-navigation = self => {
     grid(
       align: center + horizon,
       columns: (1fr, auto, auto),
@@ -399,9 +399,9 @@
     )
   }
 
-  self.buaa-title = none
-  self.buaa-subtitle = none
-  self.buaa-footer = self => {
+  self.ustc-title = none
+  self.ustc-subtitle = none
+  self.ustc-footer = self => {
     let cell(fill: none, it) = rect(
       width: 100%,
       height: 100%,
@@ -434,15 +434,15 @@
     )
   }
 
-  self.buaa-header = self => {
-    if self.buaa-title != none {
+  self.ustc-header = self => {
+    if self.ustc-title != none {
       block(
         width: 100%,
         height: 2em,
         fill: gradient.linear(self.colors.primary, self.colors.neutral-lightest),
       )
       
-      place(left + horizon, text(fill: self.colors.neutral-lightest, weight: "bold", size: 1.3em, self.buaa-title), dx: 1.5em)
+      place(left + horizon, text(fill: self.colors.neutral-lightest, weight: "bold", size: 1.3em, self.ustc-title), dx: 1.5em)
 
       place(right + horizon, image("assets/img/ustc_logo_side.svg",format: "svg"), dx: -1em)
     }
@@ -452,8 +452,8 @@
     set align(top)
     grid(
       rows: (auto, auto),
-      // utils.call-or-display(self, self.buaa-navigation),
-      utils.call-or-display(self, self.buaa-header),
+      // utils.call-or-display(self, self.ustc-navigation),
+      utils.call-or-display(self, self.ustc-header),
     )
   }
   let footer(self) = {
@@ -461,7 +461,7 @@
     set align(center + bottom)
     grid(
       rows: (auto, auto),
-      utils.call-or-display(self, self.buaa-footer),
+      utils.call-or-display(self, self.ustc-footer),
       if self.ustc-enable-progress-bar {
         utils.call-or-display(self, self.ustc-progress-bar)
       },

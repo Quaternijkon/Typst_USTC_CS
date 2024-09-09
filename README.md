@@ -23,6 +23,3 @@
 
 # 组件说明 (见doc中的文档)
 
-## gentle-clues
-
-见`docs/gentle-clues.pdf`

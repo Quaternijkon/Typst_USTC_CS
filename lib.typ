@@ -20,6 +20,9 @@
 //日历：https://typst.app/universe/package/cineca
 #import "@preview/cineca:0.2.1": *
 
+//伪代码：https://typst.app/universe/package/lovelace
+#import "@preview/lovelace:0.3.0": *
+
 //</>
 
 #let icon(codepoint) = {

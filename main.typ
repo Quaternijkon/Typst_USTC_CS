@@ -29,7 +29,7 @@
 #show: init
 #show: slides.with()
 
-#include ".\content1.typ"
+#include ".\content.typ"
 
 
 

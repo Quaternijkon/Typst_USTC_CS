@@ -5,7 +5,7 @@
 - `template`: 可复用组件
     - []
 
-- `config.typ`  : 配置文件
+- `config.typ`  : 配置文件，包括封面的信息在这里。
 - `content.typ` : 只需在此处添加内容
 - `lib.typ`     : 库文件，导入第三方库请在这导入
 - `main.typ`    : 编译入口，导入第三方库时有可能需要把`#show`放在此处

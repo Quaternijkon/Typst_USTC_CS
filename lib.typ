@@ -107,3 +107,6 @@
 //   header-color:header-color,
 //   ..args
 //   )
+#let undo(_text)={
+  text(fill: black.lighten(80%),_text)
+}

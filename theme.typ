@@ -47,9 +47,9 @@
       continue
     }
     set text(fill: if current-index == 0 or i == current-index {
-      self.colors.primary
+      self.colors.secondary
     } else {
-      self.colors.primary.lighten(80%)
+      self.colors.secondary.lighten(80%)
     })
     
     block(
@@ -338,16 +338,21 @@
     states.slide-counter.display() + " / " + states.last-slide-number
   },
   footer-g: self => {
-    link("https://github.com/Quaternijkon/Typst_USTC_CS.git",image("assets/img/github-mark-white.svg"))
+  let githublink= if self.info.github != none {
+    self.info.github
+  } else {
+    "https://github.com/Quaternijkon/Typst_USTC_CS.git"
+  }
+    link(githublink,image("assets/img/github-mark-white.svg"))
   },
   ..args,
 ) = {
   // color theme
   self = (self.methods.colors)(
     self: self,
-    primary: rgb("#034ea1"),
-    primary-dark: rgb("#004098"),
-    secondary: rgb("#ffffff"),
+    primary: rgb("#005c33"),
+    primary-dark: rgb("#00A650"),
+    secondary: rgb("#8C492C"),
     tertiary: rgb("#005bac"),
     neutral-lightest: rgb("#ffffff"),
     neutral-darkest: rgb("#000000"),
@@ -375,7 +380,7 @@
     grid(
       columns: (ratio * 100%, 1fr),
       rows: 2pt,
-      components.cell(fill: gradient.linear(self.colors.primary.lighten(10%),self.colors.primary.darken(10%))),
+      components.cell(fill: gradient.linear(self.colors.primary,self.colors.neutral-lightest,self.colors.secondary)),
       components.cell(fill: self.colors.neutral-lightest),
     )
   })
@@ -384,8 +389,8 @@
     grid(
       columns: (ratio * 100%, 1fr),
       rows: 2pt,
-      components.cell(fill: self.colors.themegreen),
-      components.cell(fill: self.colors.themeyellow),
+      components.cell(fill: self.colors.primary),
+      components.cell(fill: self.colors.secondary),
     )
   })
 
@@ -430,7 +435,7 @@
       // cell(fill: self.colors.primary, utils.call-or-display(self, footer-a)),
       // cell(fill: self.colors.primary-dark.darken(20%), utils.call-or-display(self, footer-b)),
       cell(fill: self.colors.primary, utils.call-or-display(self, footer-g)),
-      cell(fill: self.colors.primary, utils.call-or-display(self, footer-d)),
+      cell(fill: self.colors.secondary, utils.call-or-display(self, footer-d)),
     )
   }
 
@@ -444,7 +449,7 @@
       
       place(left + horizon, text(fill: self.colors.neutral-lightest, weight: "bold", size: 1.3em, self.ustc-title), dx: 1.5em)
 
-      place(right + horizon, image("assets/img/ustc_logo_side.svg",format: "svg"), dx: -1em)
+      place(right + horizon, image("assets/img/BIT.svg",format: "svg", width: 4%), dx: -1em,dy:0em)
     }
   }
   // set page

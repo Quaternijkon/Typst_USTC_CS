@@ -1,6 +1,6 @@
 #import "config.typ": *
 
-#outline-slide()
+// #outline-slide()
 
 = 第一章：样式
 
@@ -291,44 +291,43 @@ showybox(
 #slide[
   #set text(size: .5em)
 ```typc
-#info[ This is the info clue ... ]
 #tip(title: "Best tip ever")[Check out this cool package]
 ```
 ][
   #align(center,{
-info[ This is the info clue ... ]
+// info[ This is the info clue ... ]
 tip(title: "Best tip ever")[Check out this cool package]
   })
 ]
 
-== 类obsidian
+// == 类obsidian
 
-#info[This is information]
+// #info[This is information]
 
-#success[I'm making a note here: huge success]
+// #success[I'm making a note here: huge success]
 
-#check[This is checked!]
+// #check[This is checked!]
 
-#warning[First warning...]
+// #warning[First warning...]
 
-#note[My incredibly useful note]
+// #note[My incredibly useful note]
 
-#question[Question?]
+// #question[Question?]
 
-#example[An example make things interesting]
+// #example[An example make things interesting]
 
-#quote[To be or not to be]
+// #quote[To be or not to be]
 
-#callout(
-  title: "Callout",
-  fill: blue,
-  title-color: white,
-  body-color: black,
-  icon: none)[123]
+// #callout(
+//   title: "Callout",
+//   fill: blue,
+//   title-color: white,
+//   body-color: black,
+//   icon: none)[123]
 
-#let mycallout = callout.with(title: "My callout")//TODO:放到config中去
+// #let mycallout = callout.with(title: "My callout")//TODO:放到config中去
 
-#mycallout[Hey this is my custom callout!]
+// #mycallout[Hey this is my custom callout!]
 
 = 第三章：页面
 
